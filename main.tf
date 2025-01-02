@@ -10,8 +10,9 @@ module "bucket" {
     Action    = ["s3:GetObject"],
     Resource  = ["arn:aws:s3:::${var.bucket.name}${var.origins["0"].path}/*"]
   }]
-  create_policy = var.bucket.create_policy
-  force_destroy = var.bucket.force_destroy
+  object_ownership = var.bucket.object_ownership
+  create_policy    = var.bucket.create_policy
+  force_destroy    = var.bucket.force_destroy
 }
 
 module "certificate" {
@@ -96,7 +97,7 @@ module "policy" {
   source  = "app.terraform.io/ptonini-org/iam-policy/aws"
   version = "~> 1.0.0"
   name    = "cloudfront-policy-${aws_cloudfront_distribution.this.id}"
-  statement = concat(module.bucket[*].policy_statement, [
+  statement = concat(var.bucket == null ? [] : module.bucket[0].policy_statement, [
     {
       Effect   = "Allow"
       Action   = ["cloudfront:ListDistributions"]

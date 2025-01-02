@@ -1,8 +1,9 @@
 variable "bucket" {
   type = object({
-    name          = string
-    create_policy = optional(bool, true)
-    force_destroy = optional(bool, true)
+    name             = string
+    object_ownership = optional(string, "BucketOwnerPreferred")
+    create_policy    = optional(bool, true)
+    force_destroy    = optional(bool, true)
   })
   default = null
 }
@@ -12,17 +13,17 @@ variable "zone_id" {
 }
 
 variable "cloudfront_enabled" {
-  default = true
+  default  = true
   nullable = false
 }
 
 variable "default_root_object" {
-  default = "index.html"
+  default  = "index.html"
   nullable = false
 }
 
 variable "is_ipv6_enabled" {
-  default = true
+  default  = true
   nullable = false
 }
 
@@ -36,7 +37,7 @@ variable "origins" {
     domain_name = optional(string)
     origin_id   = optional(string)
   }))
-  default = { 0 = { path = "/www" } }
+  default  = { 0 = { path = "/www" } }
   nullable = false
 }
 
@@ -47,7 +48,7 @@ variable "custom_error_response" {
     response_code         = optional(number, 200)
     response_page_path    = optional(string)
   })
-  default = {}
+  default  = {}
   nullable = false
 }
 
@@ -71,7 +72,7 @@ variable "default_cache_behavior" {
       }), {})
     }), {})
   })
-  default = {}
+  default  = {}
   nullable = false
 }
 
@@ -81,7 +82,7 @@ variable "logging_config" {
     bucket          = optional(string)
     prefix          = optional(string, "access_logs")
   })
-  default = {}
+  default  = {}
   nullable = false
 }
 
@@ -90,7 +91,7 @@ variable "geo_restriction" {
     locations = optional(set(string), [])
     type      = optional(string, "none")
   })
-  default = {}
+  default  = {}
   nullable = false
 }
 
@@ -101,6 +102,6 @@ variable "viewer_certificate" {
     minimum_protocol_version       = optional(string, "TLSv1.2_2019")
     ssl_support_method             = optional(string, "sni-only")
   })
-  default = {}
+  default  = {}
   nullable = false
 }
