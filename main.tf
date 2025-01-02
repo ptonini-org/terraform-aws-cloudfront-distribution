@@ -11,7 +11,9 @@ module "bucket" {
     Resource  = ["arn:aws:s3:::${var.bucket.name}${var.origins["0"].path}/*"]
   }]
   public_access_block = {
-    block_public_acls = var.bucket.block_public_acls
+    block_public_acls       = var.bucket.block_public_acls
+    restrict_public_buckets = var.bucket.restrict_public_buckets
+    ignore_public_acls      = var.bucket.ignore_public_acls
   }
   object_ownership = var.bucket.object_ownership
   create_policy    = var.bucket.create_policy

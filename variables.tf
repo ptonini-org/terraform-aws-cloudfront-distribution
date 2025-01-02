@@ -1,10 +1,12 @@
 variable "bucket" {
   type = object({
-    name              = string
-    object_ownership  = optional(string, "BucketOwnerPreferred")
-    block_public_acls = optional(bool, false)
-    create_policy     = optional(bool, true)
-    force_destroy     = optional(bool, true)
+    name                    = string
+    object_ownership        = optional(string, "BucketOwnerPreferred")
+    block_public_acls       = optional(bool, false)
+    restrict_public_buckets = optional(bool, false)
+    ignore_public_acls      = optional(bool, false)
+    create_policy           = optional(bool, true)
+    force_destroy           = optional(bool, true)
   })
   default = null
 }
