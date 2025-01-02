@@ -10,6 +10,9 @@ module "bucket" {
     Action    = ["s3:GetObject"],
     Resource  = ["arn:aws:s3:::${var.bucket.name}${var.origins["0"].path}/*"]
   }]
+  public_access_block = {
+    block_public_acls = var.bucket.block_public_acls
+  }
   object_ownership = var.bucket.object_ownership
   create_policy    = var.bucket.create_policy
   force_destroy    = var.bucket.force_destroy
