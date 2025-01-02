@@ -104,14 +104,14 @@ module "policy" {
   name    = "cloudfront-policy-${aws_cloudfront_distribution.this.id}"
   statement = concat(var.bucket == null ? [] : module.bucket[0].policy_statement, [
     {
-      Effect   = "Allow"
-      Action   = ["cloudfront:ListDistributions"]
-      Resource = ["*"]
+      effect   = "Allow"
+      actions   = ["cloudfront:ListDistributions"]
+      resources = ["*"]
     },
     {
-      Effect   = "Allow"
-      Action   = ["cloudfront:CreateInvalidation"]
-      Resource = [aws_cloudfront_distribution.this.arn]
+      effect   = "Allow"
+      actions   = ["cloudfront:CreateInvalidation"]
+      resources = [aws_cloudfront_distribution.this.arn]
     }
   ])
 }
